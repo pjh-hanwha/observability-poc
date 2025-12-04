@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"monitoring.coreos.com/v1","kind":"PodMonitor","metadata":{"annotations":{},"name":"istio-sidecar","namespace":"promethous"},"spec":{"namespaceSelector":{"matchNames":["demo"]},"podMetricsEndpoints":[{"interval":"15s","path":"/stats/prometheus","port":"http-envoy-prom"}],"selector":{"matchLabels":{"security.istio.io/tlsMode":"istio"}}}}
+  creationTimestamp: "2025-12-04T22:52:55Z"
+  generation: 1
+  name: istio-sidecar
+  namespace: promethous
+  resourceVersion: "4145605"
+  uid: a540d5c6-e319-4e52-b072-0ed7279e8009
+spec:
+  namespaceSelector:
+    matchNames:
+    - demo
+  podMetricsEndpoints:
+  - interval: 15s
+    path: /stats/prometheus
+    port: http-envoy-prom
+  selector:
+    matchLabels:
+      security.istio.io/tlsMode: istio

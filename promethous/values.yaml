@@ -1,0 +1,27 @@
+prometheus:
+  prometheusSpec:
+    externalLabels:
+      cluster: sandbox-cluster
+    retention: 15d
+    resources:
+      requests:
+        cpu: 200m
+        memory: 1Gi
+      limits:
+        cpu: 500m
+        memory: 2Gi
+    additionalScrapeConfigs:
+      - job_name: istio-envoy-stats
+        metrics_path: /stats/prometheus
+        kubernetes_sd_configs:
+        - role: pod
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_security_istio_io_tlsMode]
+          regex: istio
+          action: keep
+        - source_labels: [__meta_kubernetes_pod_container_port_name]
+          regex: http-envoy-prom
+          action: keep
+grafana:
+  enabled: true
+
